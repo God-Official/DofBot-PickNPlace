@@ -1,0 +1,23 @@
+moveit_setup_assistant_config:
+  urdf:
+    package: dofbot_description
+    relative_path: urdf/dofbot.urdf.xacro
+  srdf:
+    relative_path: config/dofbot.srdf
+  package_settings:
+    author_name: god_official
+    author_email: prateekha4@gmail.com
+    generated_timestamp: 1763990925
+  control_xacro:
+    command:
+      - position
+    state:
+      - position
+  modified_urdf:
+    xacros:
+      - control_xacro
+  control_xacro:
+    command:
+      - position
+    state:
+      - position

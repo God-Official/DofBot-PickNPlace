@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dofbot">
+    
+    <ros2_control name="FakeSystem" type="system">
+        
+        <!-- <hardware>
+            <plugin>gz_ros2_control/GazeboSimSystem</plugin>
+        </hardware> -->
+
+        <!-- Gripper Left Joints Mimic Controls -->
+        <joint name="llink_joint1">
+            <param name="mimic">grip_joint</param>
+            <param name="multiplier">1.0</param>
+            <state_interface name="position"/> 
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="llink_joint2">
+            <param name="mimic">grip_joint</param>
+            <param name="multiplier">-1.0</param>
+            <state_interface name="position"/> 
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="llink_joint3">
+            <param name="mimic">grip_joint</param>
+            <param name="multiplier">1.0</param>
+            <state_interface name="position"/> 
+            <state_interface name="velocity"/>
+        </joint>
+
+        <!-- Gripper Right Joints Mimic Controls -->
+        <joint name="rlink_joint2">
+            <param name="mimic">grip_joint</param>
+            <param name="multiplier">1.0</param>
+            <state_interface name="position"/> 
+            <state_interface name="velocity"/>
+        </joint>
+        <joint name="rlink_joint3">
+            <param name="mimic">grip_joint</param>
+            <param name="multiplier">-1.0</param>
+            <state_interface name="position"/> 
+            <state_interface name="velocity"/>
+        </joint>
+    
+    </ros2_control>
+</robot>

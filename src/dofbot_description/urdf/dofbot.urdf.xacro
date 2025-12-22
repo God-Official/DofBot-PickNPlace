@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dofbot">
+    
+    <xacro:include filename="$(find dofbot_description)/urdf/dofbot_links.xacro"/>
+    <xacro:include filename="$(find dofbot_description)/urdf/dofbot_joints.xacro"/>
+    <xacro:include filename="$(find dofbot_description)/urdf/dofbot_transmission.xacro"/>
+    <xacro:include filename="$(find dofbot_description)/urdf/dofbot_gazebo.xacro"/>
+    <!-- <xacro:include filename="$(find dofbot_description)/urdf/dofbot_ros2control.xacro"/> -->
+    
+</robot>

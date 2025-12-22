@@ -1,0 +1,43 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    arm_gz_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    gripper_gz_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+arm_gz_controller:
+  ros__parameters:
+    joints:
+      - Arm1_Joint
+      - Arm2_Joint
+      - Arm3_Joint
+      - Arm4_Joint
+      - Arm5_Joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+
+    open_loop_control: true
+    allow_integration_in_goal_trajectories: true
+
+gripper_gz_controller:
+  ros__parameters:
+    joints:
+      - grip_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+    
+    open_loop_control: true
+    allow_integration_in_goal_trajectories: true

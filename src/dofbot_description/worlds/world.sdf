@@ -1,0 +1,232 @@
+<?xml version="1.0" ?>
+<sdf version="1.9">
+  <world name="empty_world">
+    
+    <!-- Physics -->
+    <physics name="default_physics" type="ignored">
+      <max_step_size>0.0166667</max_step_size>
+      <real_time_factor>1</real_time_factor>
+      <real_time_update_rate>60</real_time_update_rate>
+      
+    </physics>
+
+    <!-- Light -->
+    <light name="sun" type="directional">
+      <pose>0 0 10 0 0 0</pose>
+      <diffuse>0.8 0.8 0.8 1</diffuse>
+      <specular>0.2 0.2 0.2 1</specular>
+      <direction>-0.5 0.1 -0.9</direction>
+      <cast_shadows>true</cast_shadows>
+    </light>
+    
+
+    <!-- Ground plane -->
+    <model name="ground_plane">
+      <static>true</static>
+      <link name="link">
+        <pose>0 0 0 0 0 0</pose>
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>50 50 0.1</size>
+            </box>
+          </geometry>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>50 50 0.1</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0.5 0.5 0.5 1</ambient>
+            <diffuse>0.5 0.5 0.5 1</diffuse>
+          </material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Table -->
+    <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Table</uri>
+        <name>table_1</name>
+        <pose>0 0 0.05 0 0 0</pose>
+    </include>
+    <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/Table</uri>
+        <name>table_2</name>
+        <pose>0 0.81 0.05 0 0 0</pose>
+    </include>
+
+    <!-- Chair -->
+    <include>
+        <uri>https://fuel.gazebosim.org/1.0/OpenRobotics/models/OfficeChairGrey</uri>
+        <pose>0 1.5 0.05 0 0 0</pose>
+    </include>
+
+    <model name="cube_object">
+      <static>false</static>
+      <link name="red_link">
+        <pose>-0.12 0.06 1.10 0 0 0</pose> <!-- adjust X,Y,Z for table location -->
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 0 0 1</ambient>
+            <diffuse>1 0 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>0.005</mass>
+          <inertia>
+            <ixx>0.000000417</ixx>
+            <iyy>0.000000417</iyy>
+            <izz>0.000000417</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <model name="cube_object1">
+      <static>false</static>
+      <link name="green_link">
+        <pose>-0.04 0.06 1.10 0 0 0</pose> <!-- adjust X,Y,Z for table location -->
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0 1 0 1</ambient>
+            <diffuse>0 1 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>0.005</mass>
+          <inertia>
+            <ixx>0.000000417</ixx>
+            <iyy>0.000000417</iyy>
+            <izz>0.000000417</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <model name="cube_object2">
+      <static>false</static>
+      <link name="blue_link">
+        <pose>0.04 0.06 1.10 0 0 0</pose> <!-- adjust X,Y,Z for table location -->
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>0 0 1 0.5</ambient>
+            <diffuse>0 0 1 0.5</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>0.005</mass>
+          <inertia>
+            <ixx>0.000000417</ixx>
+            <iyy>0.000000417</iyy>
+            <izz>0.000000417</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+    <model name="cube_object3">
+      <static>false</static>
+      <link name="yellow_link">
+        <pose>0.12 0.06 1.10 0 0 0</pose> <!-- adjust X,Y,Z for table location -->
+        <collision name="collision">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <surface>
+            <contact>
+              <ode/>
+            </contact>
+          </surface>
+        </collision>
+        <visual name="visual">
+          <geometry>
+            <box>
+              <size>0.03 0.03 0.03</size>
+            </box>
+          </geometry>
+          <material>
+            <ambient>1 1 0 1</ambient>
+            <diffuse>1 1 0 1</diffuse>
+          </material>
+        </visual>
+        <inertial>
+          <mass>0.005</mass>
+          <inertia>
+            <ixx>0.000000417</ixx>
+            <iyy>0.000000417</iyy>
+            <izz>0.000000417</izz>
+            <ixy>0</ixy>
+            <ixz>0</ixz>
+            <iyz>0</iyz>
+          </inertia>
+        </inertial>
+      </link>
+    </model>
+
+  </world>
+</sdf>

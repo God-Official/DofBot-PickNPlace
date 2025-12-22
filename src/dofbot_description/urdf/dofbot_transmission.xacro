@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="dofbot">
+
+
+    <!-- Robotic Arm Actuators -->
+    <transmission name="Arm1_Joint_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Arm1_Joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="Arm1_Joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="Arm2_Joint_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Arm2_Joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="Arm2_Joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="Arm3_Joint_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Arm3_Joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="Arm3_Joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="Arm4_Joint_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Arm4_Joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="Arm4_Joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="Arm5_Joint_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="Arm5_Joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="Arm5_Joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <!-- Gripper Actuators -->
+    <transmission name="grip_joint_trans">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="grip_joint">
+        <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="grip_joint_motor">
+        <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+</robot>

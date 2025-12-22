@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="dofbot">
+  
+
+
+  <!-- Robotic Arm Joints -->
+  <joint name="Arm1_Joint" type="revolute">
+    <origin xyz="0 0 0.0895" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="Arm1_Link" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.5708" upper="1.5708" effort="100" velocity="1" />
+  </joint>
+  <joint name="Arm2_Joint" type="revolute">
+    <origin xyz="0 0 0.0329999999999998" rpy="0 0 0" />
+    <parent link="Arm1_Link" />
+    <child link="Arm2_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5708" upper="1.5708" effort="100" velocity="1" />
+  </joint>
+  <joint name="Arm3_Joint" type="revolute">
+    <origin xyz="-0.000549999999999828 0 0.0828499999999964" rpy="0 0 0" />
+    <parent link="Arm2_Link" />
+    <child link="Arm3_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5708" upper="1.5708" effort="100" velocity="1" />
+  </joint>
+  <joint name="Arm4_Joint" type="revolute">
+    <origin xyz="-5.0000000000161E-05 0 0.0828500000000002" rpy="1.57079632679386 0 0" />
+    <parent link="Arm3_Link" />
+    <child link="Arm4_Link" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.5708" upper="1.5708" effort="100" velocity="1" />
+  </joint>
+  <joint name="DaBai_DCW2_Joint" type="fixed">
+    <origin xyz="-0.000199999999999811 0.0688999999999998 0.0506000000000001" rpy="0.00872664625997288 0 0" />
+    <parent link="Arm4_Link" />
+    <child link="DaBai_DCW2_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+  <joint name="Arm5_Joint" type="revolute">
+    <origin xyz="0 0.0781490000000018 0.00215000000000008" rpy="0 0 0" />
+    <parent link="Arm4_Link" />
+    <child link="Arm5_Link" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.5708" upper="3.1416" effort="100" velocity="1" />
+  </joint>
+  <joint name="Gripping_point_Joint" type="fixed">
+    <origin xyz="0 0.09 0.00" rpy="0 0 0" />
+    <parent link="Arm5_Link" />
+    <child link="Gripping_point_Link" />
+    <axis xyz="0 0 0" />
+  </joint>
+
+
+
+  <!-- Gripper Right Joints -->
+  <joint name="grip_joint" type="revolute">
+    <origin xyz="0.012625 0.029275 0.00475" rpy="0 0 0.42401" />
+    <parent link="Arm5_Link" />
+    <child link="rlink1" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.57" upper="0" effort="100" velocity="1" />
+  </joint>
+  <joint name="rlink_joint2" type="continuous">
+    <origin xyz="0.027229 -0.012593 -0.0025" rpy="0 0 1.1468" />
+    <parent link="rlink1" />
+    <child link="rlink2" />
+    <axis xyz="0 0 1" />
+    <mimic joint="grip_joint" multiplier="1" offset="0" />
+  </joint>
+  <joint name="rlink_joint3" type="continuous">
+    <origin xyz="0.0045 0.047275 0.0045" rpy="0 0 0.42401" />
+    <parent link="Arm5_Link" />
+    <child link="rlink3" />
+    <axis xyz="0 0 1" />
+    <mimic joint="grip_joint" multiplier="-1" offset="0" />
+  </joint>
+
+
+
+  <!-- Gripper left Joints -->
+  <joint name="llink_joint1" type="continuous">
+    <origin xyz="-0.012375 0.029275 0.0045" rpy="0 0 2.7292" />
+    <parent link="Arm5_Link" />
+    <child link="llink1" />
+    <axis xyz="0 0 1" />
+    <mimic joint="grip_joint" multiplier="1" offset="0" />
+  </joint>
+  <joint name="llink_joint2" type="continuous">
+    <origin xyz="0.027362 0.012302 -0.0025" rpy="0 0 -1.1584" />
+    <parent link="llink1" />
+    <child link="llink2" />
+    <axis xyz="0 0 1" />
+    <mimic joint="grip_joint" multiplier="-1" offset="0" />
+  </joint>
+  <joint name="llink_joint3" type="continuous">
+    <origin xyz="-0.0045 0.047275 0.0045" rpy="0 0 2.7292" />
+    <parent link="Arm5_Link" />
+    <child link="llink3" />
+    <axis xyz="0 0 1" />
+    <mimic joint="grip_joint" multiplier="1" offset="0" />
+  </joint>
+
+
+
+  <!-- Gripper Mimic Dummy Joints -->
+  <joint name="rlink_joint3_mimic" type="fixed">
+    <parent link="rlink3" />
+    <child link="dummy_mimic_fix3" />
+  </joint>
+  <link name="dummy_mimic_fix3"/>
+  <joint name="rlink_joint2_mimic" type="fixed">
+    <parent link="rlink2" />
+    <child link="dummy_mimic_fix2" />
+  </joint>
+  <link name="dummy_mimic_fix2"/>
+  <joint name="llink_joint3_mimic" type="fixed">
+    <parent link="llink3" />
+    <child link="dummy_mimic_fixl3" />
+  </joint>
+  <link name="dummy_mimic_fixl3"/>
+  <joint name="llink_joint2_mimic" type="fixed">
+    <parent link="llink2" />
+    <child link="dummy_mimic_fixl2" />
+  </joint>
+  <link name="dummy_mimic_fixl2"/>
+  <joint name="llink_joint1_mimic" type="fixed">
+    <parent link="llink1" />
+    <child link="dummy_mimic_fixl1" />
+  </joint>
+  <link name="dummy_mimic_fixl1"/>
+
+  <!-- vj1 -->
+  <joint name="vj1_joint" type="continuous">
+    <origin xyz="0 0.09 0" rpy="0 0 0" />
+    <parent link="Arm5_Link" />
+    <child link="vj1_link" />
+    <axis xyz="0 0 1" />
+  </joint>
+  <link name="vj1_link"/>
+
+  <!-- vj2 -->
+  <joint name="vj2_joint" type="continuous">
+    <origin xyz="0 0.0 0" rpy="0 0 0" />
+    <parent link="vj1_link" />
+    <child link="vj2_link" />
+    <axis xyz="0 1 0" />
+  </joint>
+  <link name="vj2_link"/>
+
+
+
+
+</robot>

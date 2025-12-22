@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://wiki.ros.org/xacro" name="dofbot">
+
+    <!-- Robotic Arm Links -->
+    <gazebo reference="base_link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="Arm1_Link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="Arm2_Link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="Arm3_Link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="Arm4_Link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="Arm5_Link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="Gripping_point_Link">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+
+
+    <!-- Griper Right Links -->
+    <gazebo reference="rlink1">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="rlink2">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="rlink3">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+
+    <!-- Griper Left Links -->
+    <gazebo reference="llink1">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="llink2">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+    <gazebo reference="llink3">
+        <gravity>true</gravity>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <maxVel>1.0</maxVel>
+        <self_collide>1</self_collide>
+    </gazebo>
+
+    <gazebo reference="DaBai_DCW2_Link">
+        <sensor name="rgbd_camera" type="rgbd_camera">
+            <update_rate>30.0</update_rate>
+            <always_on>true</always_on>
+            <visualize>true</visualize>
+            <pose>0 0 0 3.14 3.14 -1.57</pose>
+
+            <camera>
+            <horizontal_fov>1.047</horizontal_fov> 
+            <image>
+                <width>640</width>
+                <height>480</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.05</near>
+                <far>10.0</far>
+            </clip>
+            </camera>
+
+            <depth_camera>
+            <output_format>FLOAT32</output_format>
+            </depth_camera>
+
+            <topic>rgbd_camera</topic>
+            <camera_info_topic>rgbd_camera/camera_info</camera_info_topic>
+            <depth_image_topic>rgbd_camera/depth_image</depth_image_topic>
+            <points_topic>rgbd_camera/points</points_topic>
+            <image_topic>rgbd_camera/image</image_topic>
+            <ignition_frame_id>camera_link_optical</ignition_frame_id>
+        </sensor>
+    </gazebo>
+
+
+    <gazebo>
+        <plugin name="ignition::gazebo::systems::Sensors" filename="libignition-gazebo-sensors-system.so"> </plugin>
+    </gazebo>
+
+    <gazebo>
+        <plugin filename="libgz_ros2_control-system.so" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
+            <parameters>$(find dofbot_moveit_config)/config/ros2_controllers.yaml</parameters>
+        </plugin>
+    </gazebo>
+
+
+</robot>
