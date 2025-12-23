@@ -12,6 +12,8 @@ import os
 import xacro
 from moveit_configs_utils import MoveItConfigsBuilder
 from launch_ros.substitutions import FindPackageShare
+from launch.conditions import IfCondition, UnlessCondition
+
 
 
 def generate_launch_description():
@@ -32,6 +34,13 @@ def generate_launch_description():
     ])
     
     robot_description = Command(['xacro', robot_description_file])
+
+    use_virtual_camera_arg = DeclareLaunchArgument(
+        "use_virtual_camera",
+        default_value="false",
+        description="Enable Ignition RGBD camera bridges"
+    )
+
 
     moveit_config = (
         MoveItConfigsBuilder("dofbot", package_name="dofbot_moveit_config")
@@ -131,7 +140,7 @@ def generate_launch_description():
     )
 
     # 🔁 Keep only /clock from Gazebo, remove sim RGBD camera bridges
-    gz_sim_bridge = Node(
+    gz_clock_bridge = Node(
         package="ros_gz_bridge",
         executable="parameter_bridge",
         arguments=[
@@ -140,18 +149,50 @@ def generate_launch_description():
         output="screen",
     )
 
+    gz_rgbd_bridge = Node(
+        package="ros_gz_bridge",
+        executable="parameter_bridge",
+        condition=IfCondition(LaunchConfiguration("use_virtual_camera")),
+        arguments=[
+            "/rgbd_camera/image@sensor_msgs/msg/Image[ignition.msgs.Image",
+            "/rgbd_camera/depth_image@sensor_msgs/msg/Image[ignition.msgs.Image",
+            "/rgbd_camera/camera_info@sensor_msgs/msg/CameraInfo[ignition.msgs.CameraInfo",
+            "/rgbd_camera/points@sensor_msgs/msg/PointCloud2[ignition.msgs.PointCloudPacked",
+        ],
+        output="screen",
+    )
+
+
     # 🧭 Static TF: robot → camera_link_optical (used by your custom pointcloud)
-    static_tf_node = Node(
+    static_tf_real_camera = Node(
         package='tf2_ros',
         executable='static_transform_publisher',
-        name='camera_static_tf',
+        name='camera_static_tf_real',
+        condition=UnlessCondition(LaunchConfiguration("use_virtual_camera")),
         arguments=[
-            '-0.05', '0.015', '0.01',              # x, y, z offset (tune as needed)
-            '0.0', '0.0', '-1.57',      # roll, pitch, yaw in radians
-            'DaBai_DCW2_Link',          # parent frame
-            'camera_link_optical'       # child frame (used in pointcloud header)
-        ]
+            '-0.05', '0.015', '0.01',      # x y z
+            '0.0', '0.0', '-1.57',         # roll pitch yaw
+            'DaBai_DCW2_Link',
+            'camera_link_optical'
+        ],
+        output='screen'
     )
+
+    static_tf_virtual_camera = Node(
+        package='tf2_ros',
+        executable='static_transform_publisher',
+        name='camera_static_tf_virtual',
+        condition=IfCondition(LaunchConfiguration("use_virtual_camera")),
+        arguments=[
+            '0.0', '0.0', '0.0',      # x y z
+            '1.57', '0.0', '0.0',          # roll pitch yaw
+            'DaBai_DCW2_Link',
+            'camera_link_optical'
+        ],
+        output='screen'
+    )
+
+
 
     publish_virtual_joint_once = ExecuteProcess(
         cmd=[
@@ -202,17 +243,10 @@ def generate_launch_description():
         )
     )
 
-    # Add this to your launch file
-    joint_state_debug = Node(
-        package='dofbot_moveit_config',
-        executable='joint_state_debug',
-        name='joint_state_debug',
-        output='screen'
-    )
-
     ld.add_action(x_args)
     ld.add_action(y_args)
     ld.add_action(z_args)
+    ld.add_action(use_virtual_camera_arg)
     ld.add_action(gazebo)
     ld.add_action(ros2_control_node)
     ld.add_action(gz_spawn_entity)
@@ -222,9 +256,10 @@ def generate_launch_description():
     ld.add_action(delay_arm_controller)
     ld.add_action(delay_gripper_controller)
     ld.add_action(delay_rviz_node)
-    ld.add_action(gz_sim_bridge)
+    ld.add_action(gz_clock_bridge)
+    ld.add_action(gz_rgbd_bridge)
     ld.add_action(publish_virtual_joint_once)
-    ld.add_action(static_tf_node)
-    # joint_state_debug,
+    ld.add_action(static_tf_real_camera)
+    ld.add_action(static_tf_virtual_camera)
 
     return ld

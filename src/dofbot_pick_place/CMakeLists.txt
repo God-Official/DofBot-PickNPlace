@@ -11,9 +11,6 @@ find_package(geometry_msgs REQUIRED)
 find_package(moveit_ros_planning_interface REQUIRED)
 find_package(ros_gz_interfaces REQUIRED)
 
-
-
-
 # --- Pick Place Node ---
 add_executable(pick_place_node src/pick_place.cpp)
 ament_target_dependencies(pick_place_node
@@ -21,9 +18,6 @@ ament_target_dependencies(pick_place_node
   geometry_msgs
   moveit_ros_planning_interface
   ros_gz_interfaces
-
-
-              # ✅ Added here
 )
 
 # --- Test Node ---
@@ -33,9 +27,6 @@ ament_target_dependencies(pick_place_test_node
   geometry_msgs
   moveit_ros_planning_interface
  ros_gz_interfaces
-
-
-              # ✅ Added here too
 )
 
 install(TARGETS

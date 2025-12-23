@@ -18,7 +18,7 @@ find_package(std_msgs REQUIRED)
 ament_python_install_package(scripts)
 
 install(PROGRAMS
-  scripts/block_detect.py
+  scripts/block_tf_sim.py
   scripts/block_tf.py
 
   DESTINATION lib/${PROJECT_NAME}
