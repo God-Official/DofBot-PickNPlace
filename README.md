@@ -94,6 +94,11 @@ This will:
 - Load ros2_control controllers
 - Moveit with rviz
 
+## Connecting Real Hardware   (Optional - Only for Real Bot)
+```
+ros2 run dofbot_hw interface.py
+```
+
 ## RealSense PointCloud (Optional - Only for Real Bot)
 ```
 ros2 run rs_pointcloud rs_pointcloud.py
